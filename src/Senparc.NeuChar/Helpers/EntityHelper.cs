@@ -250,6 +250,16 @@ namespace Senparc.NeuChar.Helpers
                                     prop.SetValue(entity, list, null);
                                 }
 
+                                else if (genericArgumentTypeName == nameof(String))
+                                {
+                                    List<string> list = new List<string>();
+                                    foreach (var item in root.Elements(propName))
+                                    {
+                                        list.Add(item.Value);
+                                    }
+                                    prop.SetValue(entity, list, null);
+                                }
+
 
 
                                 //企业微信
@@ -263,6 +273,17 @@ namespace Senparc.NeuChar.Helpers
                                         mpNewsArticles.Add(mpNewsArticle);
                                     }
                                     prop.SetValue(entity, mpNewsArticles, null);
+                                }
+                                else if (genericArguments[0].Name == "SelectedItem")
+                                {
+                                    List<SelectedItem> selectedItems = new List<SelectedItem>();
+                                    foreach (var item in root.Elements(propName))
+                                    {
+                                        var selectedItem = new SelectedItem();
+                                        FillEntityWithXml(selectedItem, new XDocument(item.Element("SelectedItem")));
+                                        selectedItems.Add(selectedItem);
+                                    }
+                                    prop.SetValue(entity, selectedItems, null);
                                 }
                                 break;
                             }
